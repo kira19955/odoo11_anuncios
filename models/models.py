@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
-
+from odoo import models, fields, api,exceptions
+from odoo.addons.alfresco_connection.models import decorators as alfcon
 
 class anuncios(models.Model):
     _name = 'anuncios.anuncios'
@@ -55,7 +55,7 @@ class anuncios(models.Model):
     fecha_env_correo = fields.Datetime(
         string="Fecha de envio de correo", track_visibility=True)
 
-    #campos_modificar = fields.One2many('solicitud_aliniamiento.campos_editafront', 'id_solicitud')
+    campos_modificar = fields.One2many('anuncios.campos_editafront', 'id_solicitud')
     #mapa
     address = fields.Char(string="Dirección")
     latitud = fields.Char(string='Latitud', track_visibility=True)
@@ -115,3 +115,32 @@ class settings_config_anuncios(models.Model):
     descripcon = fields.Html(string="Descripción")
     requisitos = fields.Html(string="Requisitos")
     icon_module = fields.Binary(string="Icono")
+
+class anuncios_campos_editafront(models.Model):
+    _name = 'anuncios.campos_editafront'
+
+    id_solicitud  = fields.Many2one('anuncios.anuncios')
+    
+    campo_modific = fields.Many2one('estructura_front.estrucuta_fields', domain="[('estructura_front','=',8), ('editable','=',True)]")
+
+
+    @api.model
+    @alfcon.related_files
+    def create(self, values):
+        if not values['campo_modific']:
+            raise exceptions.Warning("Imposible guardar un campo vacio, verifique la lista de campos seleccionados.")
+        campo_rep = self.env['anuncios.campos_editafront'].sudo().search([('id_solicitud', '=',values['id_solicitud']),('campo_modific', '=',values['campo_modific'])])
+        if campo_rep:
+            raise exceptions.Warning("El campo seleccionado " + campo_rep.campo_modific.display_name +" ya lo selecciono previamente.")
+        return super(anuncios_campos_editafront, self).create(values)
+ 
+    @api.multi
+    @alfcon.related_files
+    def write(self, values):
+        # raise exceptions.Warning("Imposible editar registro, deberar eliminar o agregar un nuevo registro.")
+        return super(anuncios_campos_editafront, self).write(values)
+
+    @api.multi
+    @alfcon.dummy_read
+    def read(self, fields=None, load='_classic_read'):
+        return super(anuncios_campos_editafront, self).read(fields, load=load)

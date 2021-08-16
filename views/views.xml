@@ -97,11 +97,11 @@
                             <field name="textoadjuntomail" attrs="{'invisible' : [('estatus_docum','!=','DNI')] }"/>
                             <field name="fecha_env_correo" readonly="1"
                                    attrs="{'invisible' : ['|',('fecha_env_correo','=',False), ('estatus_docum','!=','DNI')] }"/>
-                            <!--                        <field name="campos_modificar" string="Campos a modificar" attrs="{'invisible' : [('estatus_docum','!=','DNI')] }">-->
-                            <!--                          <tree editable="bottom" >-->
-                            <!--                            <field name="campo_modific" string="Campo" />-->
-                            <!--                          </tree>-->
-                            <!--                        </field>-->
+                                               <field name="campos_modificar" string="Campos a modificar" attrs="{'invisible' : [('estatus_docum','!=','DNI')] }">
+                                                   <tree editable="bottom" >
+                                                       <field name="campo_modific" string="Campo" />
+                                                     </tree>
+                                                   </field>
                         </group>
                     </sheet>
                 </form>
