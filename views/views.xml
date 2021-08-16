@@ -66,28 +66,28 @@
                             <field name="foto_anuncio"/>
                             <br/>
                             <field name="copia_contrato"
-                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','!=',True)]}"/>
+                                   attrs="{'invisible':['&amp;',('tipo_b','!=',True),('tipo_c','!=',True)]}"/>
                             <br/>
                             <field name="copia_anterior"
-                                   attrs="{'invisible':['|',('tipo_a','!=',True),('tipo_b','!=',True)]}"/>
+                                   attrs="{'invisible':['&amp;',('tipo_b','!=',True),('tipo_c','!=',True)]}"/>
                             <br/>
                             <field name="uso_suelo"
-                                   attrs="{'invisible':['|',('tipo_a','!=',True),('tipo_b','!=',True)]}"/>
+                                   attrs="{'invisible':['&amp;',('tipo_b','!=',True),('tipo_c','!=',True)]}"/>
                             <br/>
                             <field name="responsiva_perito"
-                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','=',True)]}"/>
+                                   attrs="{'invisible':[('tipo_c','!=',True)]}"/>
                             <br/>
                             <field name="memoria_calculo"
-                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','=',True)]}"/>
+                                   attrs="{'invisible':[('tipo_c','!=',True)]}"/>
                             <br/>
                             <field name="seguro_personas"
-                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','=',True)]}"/>
+                                   attrs="{'invisible':[('tipo_c','!=',True)]}"/>
                             <br/>
                             <field name="factibilidad"
-                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','=',True)]}"/>
+                                   attrs="{'invisible':[('tipo_c','!=',True)]}"/>
                             <br/>
                             <field name="responsiva_mantenimiento"
-                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','=',True)]}"/>
+                                   attrs="{'invisible':[('tipo_c','!=',True)]}"/>
                         </group>
 
                         <group string="Validación de tramite">
