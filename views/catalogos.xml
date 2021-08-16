@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="categorias_catalogos_action" model="ir.actions.act_window">
+            <field name="name">Categorias</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">categoria.anuncios</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="configuracion_cat" name="Configuracion" parent="anuncios_id" sequence="3"/>
+        <menuitem id="categorias_act" name="Categorias" parent="configuracion_cat"
+                  action="categorias_catalogos_action"/>
+                <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="conf_anuncios" name="configuracion" parent="configuracion_cat" action="confi_anuncio_action"/>
+
+    </data>
+</odoo>

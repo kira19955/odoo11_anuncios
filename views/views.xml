@@ -1,0 +1,186 @@
+<odoo>
+    <data>
+        <record id="anuncios_view_tree" model="ir.ui.view">
+            <field name="name">anuncios_view_tree</field>
+            <field name="model">anuncios.anuncios</field>
+            <field name="arch" type="xml">
+                <tree string="anuncios_tree">
+                    <field name="propietarios"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="anuncios_view_form" model="ir.ui.view">
+            <field name="name">anuncios_view_form</field>
+            <field name="model">anuncios.anuncios</field>
+            <field name="arch" type="xml">
+                <form string="anuncios_form">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button name="rechazado" type="object" string="Rechazar Solicitud" class="oe_highlight"
+                                states="recibida"/>
+                    </header>
+                    <sheet>
+                        <group string="Seleccione el tipo de anuncio">
+                            <field name="tipo_a" widget="checkbox" options="{'horizontal': true}"/>
+                            <field name="tipo_b" widget="checkbox" options="{'horizontal': true}"/>
+                            <field name="tipo_c" widget="checkbox" options="{'horizontal': true}"/>
+                        </group>
+                        <group string="Datos Del anuncio">
+                            <field name="propietarios"/>
+                        </group>
+                        <group string="Ubicación del predio" readonly="1">
+                            <field name="address" widget="autocomplete_widget" readonly="1"/>
+                            <field name="latitud_aux" invisible="1"/>
+                            <field name="longitud_aux" invisible="1"/>
+                            <field name="latitud"/>
+                            <field name="longitud"/>
+                        </group>
+                        <group string="Domicilio para recibir notificaciones">
+                            <field name="estado_notific" readonly="1"/>
+                            <field name="ciudad_notific" readonly="1"/>
+                            <field name="colonia_notific" readonly="1"/>
+                            <field name="cp_notific" readonly="1"/>
+                            <field name="calle_notific" readonly="1"/>
+                            <field name="no_exterior_notific" readonly="1"/>
+                            <field name="no_interior_notific" readonly="1"/>
+                            <field name="rfc_noti" readonly="1"/>
+
+                            <field name="representante_legal"/>
+                            <field name="nombre_lega"/>
+                            <field name="curp_lega"/>
+                        </group>
+                        <group>
+                            <field name="selec_categororia" widget="many2many_tags"/>
+                        </group>
+                        <br/>
+                        <group string="Horario">
+                            <field name="horario"/>
+                        </group>
+                        <group string="Documentacion">
+                            <field name="identificacion"/>
+                            <br/>
+                            <field name="croquis"/>
+                            <br/>
+                            <field name="foto_anuncio"/>
+                            <br/>
+                            <field name="copia_contrato"
+                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','!=',True)]}"/>
+                            <br/>
+                            <field name="copia_anterior"
+                                   attrs="{'invisible':['|',('tipo_a','!=',True),('tipo_b','!=',True)]}"/>
+                            <br/>
+                            <field name="uso_suelo"
+                                   attrs="{'invisible':['|',('tipo_a','!=',True),('tipo_b','!=',True)]}"/>
+                            <br/>
+                            <field name="responsiva_perito"
+                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','=',True)]}"/>
+                            <br/>
+                            <field name="memoria_calculo"
+                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','=',True)]}"/>
+                            <br/>
+                            <field name="seguro_personas"
+                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','=',True)]}"/>
+                            <br/>
+                            <field name="factibilidad"
+                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','=',True)]}"/>
+                            <br/>
+                            <field name="responsiva_mantenimiento"
+                                   attrs="{'invisible':['|',('tipo_a','=',True),('tipo_b','=',True)]}"/>
+                        </group>
+
+                        <group string="Validación de tramite">
+                            <field name="estatus_docum" widget='radio'/>
+                        </group>
+                        <group>
+                            <field name="textoadjuntomail" attrs="{'invisible' : [('estatus_docum','!=','DNI')] }"/>
+                            <field name="fecha_env_correo" readonly="1"
+                                   attrs="{'invisible' : ['|',('fecha_env_correo','=',False), ('estatus_docum','!=','DNI')] }"/>
+                            <!--                        <field name="campos_modificar" string="Campos a modificar" attrs="{'invisible' : [('estatus_docum','!=','DNI')] }">-->
+                            <!--                          <tree editable="bottom" >-->
+                            <!--                            <field name="campo_modific" string="Campo" />-->
+                            <!--                          </tree>-->
+                            <!--                        </field>-->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hora_view_tree" model="ir.ui.view">
+            <field name="name">hora_view_tree</field>
+            <field name="model">horas</field>
+            <field name="arch" type="xml">
+                <tree string="hora_tree" editable="bottom">
+                    <field name="name"/>
+                    <field name="hora_inicio" widget="float_time"/>
+                    <field name="hora_fin" widget="float_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Creating Config Page  -->
+        <record id="anuncios_settings_form" model="ir.ui.view">
+            <field name="name">Configuración documental</field>
+            <field name="model">settings_config_anuncios</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Configuración de panel de usuario">
+                            <field name="titulo"/>
+                            <field name="descripcon"/>
+                            <field name="requisitos"/>
+                            <field name="icon_module" widget="alfresco_file" filename="filename_icon_module"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="confi_anuncio_action" model="ir.actions.act_window">
+            <field name="name">Configuracion</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">settings_config_anuncios</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="anuncios_rechazados_view_tree" model="ir.ui.view">
+            <field name="name">anuncios_view_tree</field>
+            <field name="model">anuncios.anuncios</field>
+            <field name="arch" type="xml">
+                <tree string="anuncios_tree">
+                    <field name="propietarios"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="anuncios_rechazados_action" model="ir.actions.act_window">
+            <field name="name">Solicitudes Rechazadas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">anuncios.anuncios</field>
+            <field name="view_id" ref="anuncios_rechazados_view_tree"/>
+            <field name="domain">[('state', '=', ['rechazada'])]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <record id="anuncios_action" model="ir.actions.act_window">
+            <field name="name">Solicitud</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">anuncios.anuncios</field>
+            <field name="domain">[('state', '=', ['recibida'])]</field>
+            <field name="view_id" ref="anuncios_view_tree"/>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+        <menuitem id="anuncios_id" name="Anuncios Publicitarios" sequence="3"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_act_id" name="Solicitud Recibida" parent="anuncios_id" action="anuncios_action"
+                  sequence="1"/>
+        <menuitem id="menu_rec_id" name="Solicitud Rechazada" parent="anuncios_id" action="anuncios_rechazados_action"
+                  sequence="2"/>
+    </data>
+</odoo>
