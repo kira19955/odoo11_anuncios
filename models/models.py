@@ -89,6 +89,24 @@ class anuncios(models.Model):
 
     def rechazado(self):
         self.state = 'rechazada'
+        if(self.propietarios.email):
+            msj_correo = "Tiene campos que debe modificar con el siguiente mensaje" + self.textoadjuntomail
+            asunto = "Notificación"
+            self.send_correcoelect(msj_correo, asunto, self.propietarios.email)
+
+    def send_correcoelect(self, textbody, asunto, email_aux=False):
+        template_id = self.env.ref('anuncios.email_template_anuncios_notificaciones', False)
+
+        mail_values = {
+            'asunto_correo': asunto,
+            'correo': email_aux,
+            'body_txt': '<p>' + textbody + '</p>'
+        }
+        local_context = self.env.context.copy()
+        local_context.update(mail_values)
+        template = self.env['mail.template'].browse(template_id.id)
+        template.with_context(local_context).send_mail(
+            self.id, raise_exception=True, force_send=True)
 
 
 class Categoria_Anuncios(models.Model):

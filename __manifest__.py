@@ -20,13 +20,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','contacts','directions_utils','mail','web','website','ayto_utils', 'ayto_functions', 'alfresco_connection', 'custom_departments'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/catalogos.xml',
+        'views/email_template_anuncios_notificaciones.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
