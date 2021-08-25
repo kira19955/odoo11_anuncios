@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','contacts','directions_utils','mail','web','website','ayto_utils', 'ayto_functions', 'alfresco_connection', 'custom_departments'],
+    'depends': ['base', 'contacts', 'directions_utils', 'mail', 'web', 'website', 'ayto_utils', 'ayto_functions', 'alfresco_connection', 'custom_departments'],
 
     # always loaded
     'data': [

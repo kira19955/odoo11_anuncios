@@ -95,7 +95,7 @@ class anuncios(models.Model):
             self.send_correcoelect(msj_correo, asunto, self.propietarios.email)
 
     def send_correcoelect(self, textbody, asunto, email_aux=False):
-        template_id = self.env.ref('anuncios.email_template_anuncios_notificaciones', False)
+        template_id = self.env.ref('odoo11_anuncios.email_template_anuncios_notificaciones', False)
 
         mail_values = {
             'asunto_correo': asunto,
