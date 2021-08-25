@@ -32,7 +32,7 @@ class anuncios(models.Model):
     # documentacion
     identificacion = fields.Binary(string="Identificaion Oficial, Carta Poder o Poder Notarial")
     croquis = fields.Binary(string="Croquis de localización. (Tipo A indicar calles, días y horarios)")
-    foto_anuncio = fields.Binary(strinf="Fotografías del anuncio publicitario")
+    foto_anuncio = fields.One2many('fotos','fo', string="Fotos del anuncio")
     selec_categororia = fields.Many2many('categoria.anuncios', string="Categorias de anuncios ")
     horario = fields.One2many('horas', 'ho', string="Horario")
 
@@ -144,3 +144,10 @@ class anuncios_campos_editafront(models.Model):
     @alfcon.dummy_read
     def read(self, fields=None, load='_classic_read'):
         return super(anuncios_campos_editafront, self).read(fields, load=load)
+
+class fotos(models.Model):
+    _name = 'fotos'
+
+    descripcion = fields.Char(string="Descripcion")
+    foto = fields.Binary()
+    fo = fields.Many2one('anuncios.anuncios')

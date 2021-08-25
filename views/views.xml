@@ -63,8 +63,6 @@
                             <br/>
                             <field name="croquis"/>
                             <br/>
-                            <field name="foto_anuncio"/>
-                            <br/>
                             <field name="copia_contrato"
                                    attrs="{'invisible':['&amp;',('tipo_b','!=',True),('tipo_c','!=',True)]}"/>
                             <br/>
@@ -89,6 +87,15 @@
                             <field name="responsiva_mantenimiento"
                                    attrs="{'invisible':[('tipo_c','!=',True)]}"/>
                         </group>
+                        <br/>
+                        <group>
+                                <field name="foto_anuncio" mode="tree">
+                                    <tree editable="top">
+                                        <field name="descripcion"/>
+                                        <field name="foto"/>
+                                    </tree>
+                                </field>
+                            </group>
 
                         <group string="Validación de tramite">
                             <field name="estatus_docum" widget='radio'/>
@@ -97,11 +104,12 @@
                             <field name="textoadjuntomail" attrs="{'invisible' : [('estatus_docum','!=','DNI')] }"/>
                             <field name="fecha_env_correo" readonly="1"
                                    attrs="{'invisible' : ['|',('fecha_env_correo','=',False), ('estatus_docum','!=','DNI')] }"/>
-                                               <field name="campos_modificar" string="Campos a modificar" attrs="{'invisible' : [('estatus_docum','!=','DNI')] }">
-                                                   <tree editable="bottom" >
-                                                       <field name="campo_modific" string="Campo" />
-                                                     </tree>
-                                                   </field>
+                            <field name="campos_modificar" string="Campos a modificar"
+                                   attrs="{'invisible' : [('estatus_docum','!=','DNI')] }">
+                                <tree editable="bottom">
+                                    <field name="campo_modific" string="Campo"/>
+                                </tree>
+                            </field>
                         </group>
                     </sheet>
                 </form>
@@ -119,6 +127,18 @@
                 </tree>
             </field>
         </record>
+
+        <!--        <record id="fotos_view_tree" model="ir.ui.view">-->
+        <!--            <field name="name">fotos_view_tree</field>-->
+        <!--            <field name="model">fotos</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <tree>-->
+        <!--                    <field name="descripcion"/>-->
+        <!--                    <field name="foto"/>-->
+        <!--                </tree>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
 
         <!-- Creating Config Page  -->
         <record id="anuncios_settings_form" model="ir.ui.view">
